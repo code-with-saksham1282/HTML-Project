@@ -1,0 +1,65 @@
+/* Block Example */
+header {
+    display: block;
+    background: #5e92f3;  /* Blue Shade */
+    padding: 12px;
+    font-size: 25px;
+    color: white;
+    text-align: center;
+}
+
+header span {
+    display: inline;
+    color: yellow;  /* Inline text color */
+}
+
+
+
+/* Inline-block Navigation */
+.inline-block-menu ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 5px;
+}
+
+.inline-block-menu li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.inline-block-menu a {
+    text-decoration: none;
+    padding: 8px;
+    background: #ff9f43;  /* Orange */
+    color: white;
+    border-radius: 5px;
+}
+
+
+
+/* Float Navigation */
+.float-menu ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 5px;
+}
+
+.float-menu li {
+    float: left;
+    margin-right: 10px;
+}
+
+.float-menu a {
+    text-decoration: none;
+    padding: 8px;
+    background: #26de81; /* Green */
+    color: white;
+    border-radius: 5px;
+}
+
+
+
+/* Clear Example */
+.clear {
+    clear: both;
+}
