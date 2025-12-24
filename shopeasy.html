@@ -1,0 +1,412 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>T-Shirt Product Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1115;
+      --card: #141821;
+      --muted: #a7b0c0;
+      --text: #e9edf5;
+      --accent: #4f8cff;
+      --accent-2: #22c55e;
+      --border: #1f2430;
+      --focus: #8ab4f8;
+      --danger: #ef4444;
+      --shadow: 0 10px 25px rgba(0,0,0,0.35);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      background: linear-gradient(135deg, #0b0d12, #12151d 60%, #0b0e15);
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+    }
+
+    .container {
+      min-height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .product-card {
+      width: 100%;
+      max-width: 980px;
+      background: radial-gradient(1200px 600px at 50% -200px, rgba(79,140,255,0.2), transparent 50%),
+                  linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 0;
+    }
+
+    /* Image area */
+    .media {
+      position: relative;
+      background: #0e121a;
+    }
+
+    .badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: rgba(79,140,255,0.15);
+      color: var(--accent);
+      border: 1px solid rgba(79,140,255,0.35);
+      backdrop-filter: blur(6px);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .product-image {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+      filter: contrast(1.05) saturate(1.1);
+    }
+
+    .thumbs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      padding: 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-top: 1px solid var(--border);
+    }
+
+    .thumb {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 160ms ease, border-color 160ms ease;
+    }
+    .thumb:hover { transform: translateY(-2px); border-color: rgba(79,140,255,0.35); }
+
+    .thumb img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Details area */
+    .details {
+      padding: 24px;
+      display: grid;
+      gap: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    }
+
+    .title {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .title h1 {
+      font-size: 24px;
+      line-height: 1.25;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .stars {
+      display: inline-block;
+      letter-spacing: 2px;
+      color: #fbbf24; /* amber */
+      font-weight: 700;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .price {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--accent-2);
+    }
+    .mrp {
+      color: var(--muted);
+      text-decoration: line-through;
+      font-size: 14px;
+    }
+    .save {
+      color: #10b981;
+      font-size: 13px;
+      font-weight: 600;
+      background: rgba(16,185,129,0.12);
+      border: 1px solid rgba(16,185,129,0.3);
+      padding: 4px 8px;
+      border-radius: 8px;
+    }
+
+    .desc {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* Options */
+    .group {
+      display: grid;
+      gap: 10px;
+    }
+    .group label {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    /* Color swatches */
+    .swatches {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .swatch {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      outline: 2px solid transparent;
+      cursor: pointer;
+      transition: outline-color 160ms ease, transform 160ms ease;
+    }
+    .swatch:hover { transform: translateY(-2px); }
+    .swatch.active { outline-color: rgba(79,140,255,0.5); }
+
+    /* Size selector */
+    .sizes {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .size {
+      padding: 10px 0;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-align: center;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: border-color 160ms ease, transform 160ms ease;
+    }
+    .size:hover { transform: translateY(-2px); border-color: rgba(79,140,255,0.35); }
+    .size.disabled {
+      color: #5b6472;
+      cursor: not-allowed;
+      position: relative;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    }
+
+    /* Quantity and actions */
+    .actions {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 12px;
+    }
+    .qty {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #0f131a;
+    }
+    .qty button, .qty input {
+      border: none;
+      background: transparent;
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 700;
+      padding: 10px 0;
+    }
+    .qty button {
+      cursor: pointer;
+      transition: background 160ms ease;
+    }
+    .qty button:hover { background: rgba(79,140,255,0.12); }
+
+    .qty input {
+      text-align: center;
+      font-weight: 600;
+      -moz-appearance: textfield;
+    }
+    .qty input::-webkit-outer-spin-button,
+    .qty input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+    .cta {
+      display: flex;
+      gap: 10px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      height: 44px;
+      padding: 0 18px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    }
+    .btn:hover { transform: translateY(-1px); border-color: rgba(79,140,255,0.35); }
+    .btn-primary {
+      background: linear-gradient(180deg, rgba(79,140,255,0.35), rgba(79,140,255,0.15));
+      border-color: rgba(79,140,255,0.45);
+      color: #fff;
+    }
+    .btn-primary:hover { background: linear-gradient(180deg, rgba(79,140,255,0.55), rgba(79,140,255,0.25)); }
+
+    .secure {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* Shipping and meta */
+    .meta {
+      display: grid;
+      gap: 10px;
+      padding-top: 6px;
+      border-top: 1px dashed var(--border);
+    }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Responsive */
+    @media (max-width: 880px) {
+      .product-card { grid-template-columns: 1fr; }
+      .actions { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <article class="product-card" role="region" aria-label="T-Shirt product">
+      <div class="media">
+        <span class="badge">New arrival</span>
+        <img
+          class="product-image"
+          src="https://images.unsplash.com/photo-1520975922284-5f65d0b6b368?q=80&w=1200&auto=format&fit=crop"
+          alt="Premium cotton T-shirt in black on hanger"
+        />
+        <div class="thumbs" aria-label="More images">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=400&auto=format&fit=crop" alt="Front view"></div>
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1520974735194-673dcfd4899f?q=80&w=400&auto=format&fit=crop" alt="Back view"></div>
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1617137968427-85924c800b04?q=80&w=400&auto=format&fit=crop" alt="Fabric close-up"></div>
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=400&auto=format&fit=crop" alt="Styled shot"></div>
+        </div>
+      </div>
+
+      <div class="details">
+        <div class="title">
+          <h1>Premium Cotton T‑Shirt</h1>
+        </div>
+
+        <div class="rating" aria-label="Rating">
+          <span class="stars">★★★★★</span>
+          <span>4.7 (1,248 reviews)</span>
+        </div>
+
+        <div class="price-row">
+          <div class="price">₹699</div>
+          <div class="mrp">₹999</div>
+          <div class="save">Save 30%</div>
+        </div>
+
+        <p class="desc">
+          Ultra‑soft 100% cotton with breathable knit. Pre‑shrunk, true‑to‑size fit. Made for everyday comfort and clean style.
+        </p>
+
+        <div class="group">
+          <label for="colors">Color</label>
+          <div class="swatches" id="colors" role="listbox" aria-label="Choose color">
+            <button class="swatch active" style="background:#111" aria-label="Black"></button>
+            <button class="swatch" style="background:#8b5cf6" aria-label="Lilac"></button>
+            <button class="swatch" style="background:#f43f5e" aria-label="Crimson"></button>
+            <button class="swatch" style="background:#22c55e" aria-label="Forest"></button>
+            <button class="swatch" style="background:#f59e0b" aria-label="Mustard"></button>
+          </div>
+        </div>
+
+        <div class="group">
+          <label for="sizes">Size</label>
+          <div class="sizes" id="sizes" role="listbox" aria-label="Choose size">
+            <button class="size">XS</button>
+            <button class="size">S</button>
+            <button class="size">M</button>
+            <button class="size">L</button>
+            <button class="size">XL</button>
+            <button class="size disabled" aria-disabled="true" title="Out of stock">XXL</button>
+          </div>
+        </div>
+
+        <div class="actions">
+          <div class="qty" aria-label="Quantity selector">
+            <button aria-label="Decrease quantity">−</button>
+            <input type="number" min="1" value="1" aria-label="Quantity"/>
+            <button aria-label="Increase quantity">+</button>
+          </div>
+
+          <div class="cta">
+            <button class="btn btn-primary">Add to cart</button>
+            <button class="btn" title="Save for later">♡ Wishlist</button>
+          </div>
+        </div>
+
+        <div class="meta">
+          <div class="meta-item">🚚 Free delivery to Ghaziabad on orders over ₹499</div>
+          <div class="meta-item">↩️ 15‑day easy returns</div>
+          <div class="meta-item">🧼 Machine‑washable, colorfast fabric</div>
+        </div>
+
+        <div class="secure">
+          🔒 Secure checkout powered by trusted payment gateways
+        </div>
+      </div>
+    </article>
+  </div>
+</body>
+</html>
