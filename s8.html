@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Analytics</title>
+<style>
+body{margin:0;font-family:Arial;display:flex}
+.sidebar{
+  width:220px;background:#1e1e2f;color:white;padding:20px;
+}
+.sidebar a{
+  display:block;color:white;text-decoration:none;
+  margin:15px 0;
+}
+.main{
+  flex:1;background:#f4f4f4;padding:30px;
+}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+}
+.stat{
+  background:white;padding:30px;
+  border-radius:15px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>Dashboard</h2>
+  <a href="#">Overview</a>
+  <a href="#">Reports</a>
+  <a href="#">Users</a>
+  <a href="#">Settings</a>
+</div>
+
+<div class="main">
+  <h1>Analytics</h1><br>
+  <div class="stats">
+    <div class="stat">👥 Users<br><h2>1,200</h2></div>
+    <div class="stat">💰 Revenue<br><h2>₹2.5L</h2></div>
+    <div class="stat">📦 Orders<br><h2>320</h2></div>
+  </div>
+</div>
+
+</body>
+</html>
