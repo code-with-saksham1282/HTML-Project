@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amazing UI</title>
+
+<style>
+/* Animated Gradient Background */
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(-45deg, #ff6b6b, #6b9cff, #6bffb0, #ffd36b);
+    background-size: 400% 400%;
+    animation: gradientMove 10s ease infinite;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Glass Card */
+.card {
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.15);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    color: white;
+    width: 300px;
+}
+
+/* Typing Text */
+.typing {
+    font-size: 24px;
+    height: 30px;
+    border-right: 2px solid white;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* Glow Button */
+button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    background: white;
+    color: black;
+    transition: 0.3s;
+}
+
+button:hover {
+    box-shadow: 0 0 20px white, 0 0 40px white;
+    transform: scale(1.1);
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>Welcome 🚀</h2>
+    <div class="typing" id="typingText"></div>
+    <button onclick="showMessage()">Click Me</button>
+</div>
+
+<script>
+/* Typing Effect */
+const text = " TO ABES EC!";
+let index = 0;
+
+function typeEffect() {
+    if (index < text.length) {
+        document.getElementById("typingText").innerHTML += text.charAt(index);
+        index++;
+        setTimeout(typeEffect, 80);
+    }
+}
+
+typeEffect();
+
+/* Button Interaction */
+function showMessage() {
+    alert("You clicked the glowing button 😎");
+}
+</script>
+
+</body>
+</html>
